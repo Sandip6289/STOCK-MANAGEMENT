@@ -30,11 +30,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" aria-current="page" href="index">Home</a>
+          <a class="nav-link " aria-current="page" href="index">Home</a>
           <a class="nav-link" href="show_product">Show Product</a>
-          <a class="nav-link active" href="add_product">Add Product</a>
+          <a class="nav-link" href="add_product">Add Product</a>
           <a class="nav-link" href="add_category">Add Category</a>
-          <a class="nav-link" href="add_sub_category">Add Sub Category</a>
+          <a class="nav-link active" href="add_sub_category">Add Sub Category</a>
 
 
         </div>
@@ -45,45 +45,30 @@
 
   <div class="container">
     <header class="header">
-      <h1 id="title" class="text-center">Add Product</h1>
+      <h1 id="title" class="text-center">Add Sub Category</h1>
       <p id="description" class="text-center">
         Thank you for taking the time
       </p>
     </header>
     <div class="form-wrap">
-      <form method="post" action="store_product_in_db" enctype="multipart/form-data">
+      <form method="post" action="store_sub_category_in_db" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label id="name-label" for="productname">Product Name</label>
-              <input type="text" name="productname" id="productname" placeholder="Enter product name"
+              <label id="name-label" for="subcategoryname">Sub Category Name</label>
+              <input type="text" name="subcategoryname" id="subcategoryname" placeholder="Enter sub category name"
                 class="form-control" required>
             </div>
           </div>
+          
           <div class="col-md-6">
             <div class="form-group">
-              <label id="productimage" for="productimage">Product Image</label>
-              <input type="file" name="productimage" id="productimage" class="form-control">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label id="productcount" for="productcount">Product Count</label>
-              <input type="number" name="productcount" id="productcount" min="1" class="form-control"
-                placeholder="product count" required>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Sub Category</label>
-              <select id="subcategory" name="subcategory" class="form-control" required>
-                <option disabled selected value>Select sub category</option>
-                {% for item in sub_category %}
-                <option value="{{item.sub_category_name}}">{{item.sub_category_name}}</option>
+              <label>Category</label>
+              <select id="category" name="category" class="form-control" required>
+                <option disabled selected value>Select category</option>
+                {% for item in category %}
+                <option value="{{item.category_name}}">{{item.category_name}}</option>
                 {% endfor %}
               </select>
             </div>
@@ -91,7 +76,7 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <button type="submit" id="submit" class="btn btn-primary btn-block">Save Product</button>
+            <button type="submit" id="submit" class="btn btn-primary btn-block">Save Sub Category</button>
           </div>
         </div>
 

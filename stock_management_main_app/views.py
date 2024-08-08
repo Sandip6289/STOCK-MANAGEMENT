@@ -34,6 +34,11 @@ class AddProduct(View):
         return render(request, "add_product.html")
     
 
+class AddCategory(View):
+    def get(self, request):
+        return render(request, 'add_category.html')
+    
+
 class StoreProductInDB(View):
     def post(self, request):
         print(request.POST['subcategory'])
@@ -65,5 +70,55 @@ class StoreProductInDB(View):
             return redirect('show_product')
         except:
             print("Error saving product")
+
+            return redirect('index')
+
+
+class StoreCategoryInDB(View):
+    def post(self, request):
+        print(request.POST['categoryname'])
+        try:
+            category_name = request.POST['categoryname'].lower()
+            
+            if category_name is not None:
+                try:
+                    existing_category = Category.objects.get(category_name=category_name)
+                    print(existing_category)
+                except Exception as e:
+                    category = Category.objects.create(category_name=category_name)
+                    category.save()
+            return redirect('show_product')
+        except:
+            print("Error saving Category")
+
+            return redirect('index')
+
+
+class AddSubCategory(View):
+    def get(self, request):
+        try:
+            category = Category.objects.all()
+            return render(request, "add_sub_category.html", {'category':category})
+        except:
+            pass
+
+        return render(request, "add_sub_category.html")
+    
+class StoreSubCategoryInDB(View):
+    def post(self, request):
+        print(request.POST['subcategoryname'])
+        try:
+            sub_category_name = request.POST['subcategoryname'].lower()
+            category = Category.objects.get(category_name=request.POST['category'])
+            if sub_category_name is not None:
+                try:
+                    existing_category = Sub_category.objects.get(sub_category_name=sub_category_name)
+                    print(existing_category)
+                except Exception as e:
+                    subcategory = Sub_category.objects.create(sub_category_name=sub_category_name, category=category)
+                    subcategory.save()
+            return redirect('show_product')
+        except:
+            print("Error saving Sub Category")
 
             return redirect('index')
